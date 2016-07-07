@@ -1,0 +1,48 @@
+{% extends "./base_panel.html" %}
+{% block title %}
+	<title>修改职员信息</title>
+{% endblock %}
+
+{% block head %}
+<script>
+	$(function() {
+		var fv = new formValidate('#frm'); 
+		fv.init({}); 
+
+		bindButton('#ulist','#btnSelectBranch','#id_branch_id','#id_branch_name','选择店铺','/setting/branch/select/',2);
+	});
+</script>
+{% endblock %}
+
+{% block panel %}
+	<div class="content bg-ll-blue" style="height:35px;line-height:35px;">
+		<a href="/public/main/">主页</a> -> <a href="/setting/user/">职员</a> -> 修改职员信息
+	</div>
+
+
+	<div class="content bg-white">
+	<form id="frm"  method="post" action="/setting/user/edit/{{user.id}}">
+		{% csrf_token %}
+		<div style="height:40px;">
+			<input class="little-button button-red" type="submit" name="save" value="保存" />
+			<a class="little-button button-blue" href="/setting/user/">取消</a>
+		</div>
+			<ul id="ulist">
+				<li class="form-li"><label>{{f.real_name.label}} </label>{{f.real_name}}<span></span></li>
+				<li class="form-li">{{f.branch_id.as_hidden}}</li>
+				<li class="form-li"><label>{{f.branch_name.label}} </label>{{f.branch_name}}<span></span>
+				<span id="btnSelectBranch" class="tiny-button button-green">选择</span>
+				</li>
+				<li class="form-li"><label>{{f.mobile.label}} </label>{{f.mobile}}<span></span></li>
+				<li class="form-li"><label>{{f.password.label}} </label>{{f.password}}<span></span> 留空表示不变</li>
+
+				<li class="form-li"><label>{{f.roles.label}} </label>
+				{% for i in f.roles %}
+				{{i}}
+				{% endfor %}
+				</li>
+			</ul>
+
+	</form>
+	</div>
+{% endblock %}

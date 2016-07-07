@@ -1,0 +1,21 @@
+{% extends "./base_panel.html" %}
+{% load business_tags %}
+{% block title %}
+	<title>选择消费卡模式</title>
+{% endblock %}
+
+{% block panel %}
+	<div class="content bg-ll-blue" style="height:35px;line-height:35px;">
+		<a href="/public/main/">主页</a> -> <a href="/bill/sale/">选择消费卡模式</a>
+	</div>
+
+	<div class="content bg-white">
+		<div style="height:40px;">
+		</div>
+		<ul id="ulist">
+			<a class="little-button button-blue" href="/bill/recharge/value/new/">充值卡充值</a>
+			<a class="little-button button-blue" href="/bill/recharge/times/new/">计次卡充值</a>
+		</ul>
+
+	</div>
+{% endblock %}

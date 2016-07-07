@@ -1,0 +1,35 @@
+{% extends "./base_panel.html" %}
+{% block title %}
+	<title>修改客户</title>
+{% endblock %}
+
+{% block head %}
+<script>
+	$(function() {
+		var fv = new formValidate('#frm'); 
+		fv.init({}); 
+	});
+</script>
+{% endblock %}
+
+{% block panel %}
+	<div class="content bg-ll-blue" style="height:35px;line-height:35px;">
+		<a href="/public/main/">主页</a> -> <a href="/business/unit/">客户</a> -> 修改客户
+	</div>
+
+
+	<div class="content bg-white">
+	<form id="frm"  method="post" action="/business/unit/edit/{{unit.id}}">
+		{% csrf_token %}
+		<div style="height:40px;">
+			<input class="little-button button-red" type="submit" name="save" value="保存" />
+			<a class="little-button button-blue" href="/business/unit/">取消</a>
+		</div>
+			<ul id="ulist">
+				<li class="form-li"><label>{{f.unit_name.label}} </label>{{f.unit_name}}<span></span></li>
+				<li class="form-li"><label>{{f.mobile.label}} </label>{{f.mobile}}<span></span></li>
+				<li class="form-li"><label>{{f.cardno.label}} </label>{{f.cardno}}<span></span></li>
+			</ul>
+	</form>
+	</div>
+{% endblock %}

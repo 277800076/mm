@@ -1,0 +1,37 @@
+{% extends "./base_dialog.html" %}
+{% block head %}
+<script type="text/javascript">
+$(function() {
+	var index = parent.layer.getFrameIndex(window.name);
+	$('#btnSave').on('click',function(){
+
+		var un=$('#id_unit_name').val();
+		$.post("/unit/new/",{unit_name:un},function(response) {          
+	        var result = eval ("(" + response + ")");  
+	        $('{{ns}}', window.parent.document).val(result.unit_name);
+	    	$('{{ids}}', window.parent.document).val(result.id);
+			parent.layer.close(index);
+		});
+	});
+	
+	$('#btnCancel').on('click',function(){
+		parent.layer.close(index);
+	});
+     
+});
+</script>
+{%endblock%}
+{% block content %}
+<div>
+	<div class="content bg-white">
+			<div style="height:40px;">
+				<button id="btnSave" class="little-button button-red" name="save">保存</button>
+				<button id="btnCancel" class="little-button button-blue">取消</button>
+			</div>
+			<ul>
+				<li class="form-li"><label>{{f.unit_name.label}} </label>{{f.unit_name}}</li>
+			</ul>
+	
+	</div>
+</div>
+{%endblock%}

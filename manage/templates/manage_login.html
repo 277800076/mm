@@ -1,0 +1,50 @@
+{% extends "./base_manage.html" %}
+{% block title %}
+	<title>登录</title>
+{% endblock %}
+{% block head %}
+<script type="text/javascript">
+$(function() {
+
+	$("#id_mobile").focus();
+
+	function onkey()
+	{
+		if (window.event.keyCode==13)
+		{
+		document.all["id_login"].focus();
+		}
+	}
+});
+</script>
+{%endblock%}
+{% block panel %}
+<div style="margin-top:100px;">
+	<div >
+        <div class="login" style="margin-left:600px;">
+
+        	<div style="margin-left:35px;">
+                <h2 class="form-title">登录SVERP</h2>
+                <form method="post" path="/manage/login/">
+	                {% csrf_token %}
+	                <div class="form-item">
+	                    <label class="login-label login-user" ></label>
+	                    {{f.mobile}}
+	                </div>
+	                <div class="form-item">
+	                    <label class="login-label login-password"></label>
+	                    {{f.password}}
+	                </div>
+
+	                <div class="form-item">
+	                    <input id="id_login" type="submit" class="login-button" value="登录" /> 
+	                </div>
+                </form>
+            </div>
+
+        </div>
+	</div>
+      
+</div>
+
+{% endblock %}

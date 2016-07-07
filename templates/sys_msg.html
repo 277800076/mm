@@ -1,0 +1,21 @@
+{% extends "./base_panel.html" %}
+{% block title %}
+	<title>{{t}}</title>
+{% endblock %}
+{% block head %}
+<script type="text/javascript" language="javascript">
+ function jump(url)
+	{ 
+	window.location.href=url; 
+	} 
+ window.setTimeout("jump('/public/main');",3000); 
+</script>
+{% endblock %}
+
+{% block panel %}
+	<div class="align-center" width="100%" height="400"> 
+		<br/><br/><br/><br/>
+		<span class="sv-font-xxl sv-color-deep">{{i}}</span>
+		<br/><br/><br/><br/>
+	</div>
+{% endblock %}

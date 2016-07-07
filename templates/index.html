@@ -1,0 +1,123 @@
+{% extends "./base.html" %}
+{% block title %}
+	<title>橙软主页</title>
+{% endblock %}
+{% block head %}
+<script>
+	$(function() {
+		//绑定登录按钮
+		bindButtonJump('#divButton','#btnLogin','/main/','登录','/win_login/',1);
+	});
+</script>
+{% endblock %}
+{% block content %}
+<div class="container">
+	<div class="visual-content">
+	    <div class="featured">
+	        <div id="fragment-1">
+	            <div class="b-one" style="-webkit-transform: translate(0px, 150px); opacity: 1;"> 
+					<span class="f40">简单易用的会员管理系统!</span><br/>
+				</div>
+				<div class="b-two" style="-webkit-transform: translate(100px, 0px); opacity: 1;">最简单的会员管理系统</div>
+				<div class="b-three" style="-webkit-transform: translate(100px, 0px); opacity: 1;">一用即会</div>
+				<div class="b-four" style="-webkit-transform: translate(100px, 0px); opacity: 1;">适用于理发店、洗车行等采用充值消费的行业</div>
+				<div class="b-five" style="-webkit-transform: translate(100px, 0px); opacity: 1;"></div>
+				<!-- 
+	            <div class="b-six" style="opacity: 1;"><a href="" class="btn-readmore">查看详细内容</a></div>
+				 -->
+				<div class="b-seven" style="opacity: 1;"></div>
+				<div class="b-eight" style="opacity: 1;"></div>
+			</div>
+			<div id="fragment-2">
+				<div class="a-one" style="-webkit-transform: translate(0px, -150px); opacity: 0;"> 
+					<span class="f40">会员管理系统简易版 0元/月</span><br/>
+					<!-- <span class="blue mgt10 f16">橙软会员管理系统 专业版 99元/月</span>  -->		
+				</div>
+				<div class="a-two" style="-webkit-transform: translate(-100px, 0px); opacity: 0;">免费使用</div>
+				<div class="a-three" style="-webkit-transform: translate(-100px, 0px); opacity: 0;">免费咨询</div>
+				<div class="a-four" style="-webkit-transform: translate(-100px, 0px); opacity: 0;">免费系统升级</div>
+				<div class="a-five" style="-webkit-transform: translate(-100px, 0px); opacity: 0;"></div>
+				<!--  
+				<div class="a-six" style="opacity: 0;"><a href="" class="btn-readmore">查看详细内容</a></div>
+				-->
+				<div class="a-seven" style="-webkit-transform: translate(315px, 0px); opacity: 0;"></div>
+	            <div class="a-eight" style="-webkit-transform: translate(100px, 0px); opacity: 0;"></div>
+			</div>
+			<div id="fragment-3">
+				<div class="c-one" style="-webkit-transform: translate(0px, -150px); opacity: 0;"> 
+					<span class="f40">在线会员管理系统</span> 
+				</div>
+				<div class="c-two" style="-webkit-transform: translate(100px, 0px); opacity: 0;">在线提供库存、会计、销售、采购等所有功能</div>
+				<div class="c-three" style="-webkit-transform: translate(100px, 0px); opacity: 0;">不需要任何硬件设备</div>
+				<div class="c-four" style="-webkit-transform: translate(100px, 0px); opacity: 0;">随时随地开分店，共享客户资料</div>
+				<div class="c-five" style="-webkit-transform: translate(100px, 0px); opacity: 0;"></div>
+				<!-- 
+	            <div class="c-six" style="opacity: 0;"><a href="" class="btn-readmore">查看详细内容</a></div>
+				-->
+				<div class="c-seven" style="-webkit-transform: translate(-200px, 0px); opacity: 0;"></div>
+				<div class="c-eight" style="-webkit-transform: translate(-200px, 0px); opacity: 0;"></div>
+				<div class="c-nine" style="-webkit-transform: translate(-200px, 0px); opacity: 0;"></div>
+			</div>
+			<div id="fragment-4">
+				<div class="d-one" style="-webkit-transform: translate(0px, -150px); opacity: 0;"> 
+					<span class="f40">安全</span> 
+				</div>
+				<div class="d-two" style="-webkit-transform: translate(100px, 0px); opacity: 0;">安全的系统</div>
+				<div class="d-three" style="-webkit-transform: translate(100px, 0px); opacity: 0;">数据安全保障和备份</div>
+				<div class="d-four" style="-webkit-transform: translate(100px, 0px); opacity: 0;">数据支持离线保存</div>
+				<div class="d-five" style="-webkit-transform: translate(100px, 0px); opacity: 0;"></div>
+				<div class="d-seven" style="-webkit-transform: translate(-200px, 0px); opacity: 0;"></div>
+				<div class="d-eight" style="-webkit-transform: translate(-200px, 0px); opacity: 0;"></div>
+				<div class="d-nine" style="-webkit-transform: translate(-200px, 0px); opacity: 0;"></div>
+			</div>            
+	        <div class="visual-bar">
+	            <ul>
+	                <li><a href="#fragment-1">简单易用</a></li>
+					<li><a href="#fragment-2">会员管理系统简易版 0元/月</a></li>
+					<li><a href="#fragment-3">在线系统</a></li>
+					<li><a href="#fragment-4">安全</a></li>
+	            </ul>
+	
+	            <div class="play-btn">
+	                <div class="prev" id="prevTabs"></div>
+	                <div class="pause" id="stopStartTabs"></div>
+	                <div class="next" id="nextTabs"></div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<div id="divButton" class="btn-content" style="float:left;">
+		<a id="btnRegister" href="/register/" class="btn-footer">免费注册<span class="icon_btn reg"></span></a>
+		<a id="btnLogin" href="#" class="btn-footer">登录<span class="icon_btn login"></span></a>
+  	</div>      
+</div>
+<div class="footer">
+	<ul class="footer-content">
+		<li class="contact">
+			<div class="title">联系方式</div>
+			<div>
+				郑州市东风路百脑汇513室<br>
+                郑州一方资讯电子科技有限公司
+			</div>
+			<div class="cs">
+                <a href="tencent://message/?uin=13713496&Site=www.chengsoft.com&Menu=yes" class="qq"></a><br/>
+				<span class="telephone">&nbsp;</span><span>0371-65500398</span><br>
+                <span class="beian">&nbsp;</span><a href="http://hcainfo.miitbeian.gov.cn/state/outPortal/loginPortal.action">ICP : 豫ICP备14022013号-1</a>
+			</div>
+		</li>
+		<li class="feature">
+			<div class="title">文档</div>
+			<ul>
+				<li><a href="/doc/01/">关于会员</a></li>
+				<li><a href="/public/help/#search">搜索</a></li>
+			</ul>
+		</li>
+		<li class="new-user">
+			<div class="title"></div>
+			<div>
+			</div>
+
+		</li>
+	</ul>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "./base_panel.html" %}
+{% block panel %}
+<div class="content bg-white">
+
+	<div style="width:770px;float:left;">
+		<div>&nbsp;</div>
+	</div>
+	<div style="width:200px;float:left;">
+		{% for i in a %}
+		<a href="{{i.url}}">
+		<div style="width:100px;height:100px;float:left;" class="align-center">
+			<div>
+				<img src="/images/icons/{{i.icon}}" />
+			</div>
+			<div>
+				<span class="align-center">{{i.content_name}}</span>
+			</div>
+		</div>
+		</a>
+		{% endfor %}
+	</div>
+
+</div>
+{% endblock %}

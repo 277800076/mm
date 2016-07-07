@@ -1,0 +1,69 @@
+{% extends "./base_panel.html" %}
+{% load business_tags %}
+{% block title %}
+	<title>付款结果</title>
+{% endblock %}
+{% block head %}
+<script type="text/javascript">
+	$(document).ready(function(){
+        $('#pay').click(function(){
+            $('.check-bg').show();
+        })
+	});
+</script>
+{% endblock %}
+{% block panel %}
+	<div class="wait">
+		{% ifequal cb.status 10 %}
+			<h2 class="success">支付成功！</h2>
+			{% if u %}
+			<p>您可以到<a href='/setting/company/'>公司账户</a>查看可用时间了。</p>
+			{% endif %}
+		{% else %}
+			<h2 class="fail">支付失败！</h2>
+		<p>如果确定已付款，显示支付失败，请稍等几秒钟后点击此处<a href='/public/verify/{{cb.id}}'>刷新页面</a>。</p>
+		{% endifequal %}
+
+
+		<ul>
+			<li>{{cb|display_verbose_name:'id'}}：{{cb.id}}</li>
+			<li>订单状态：{% ifequal cb.status 10 %}<span class="green">成功!</span>{% else %}<span class="red">失败!</span>{% endifequal %}
+			<li>{{cb.company|display_verbose_name:'company_name'}}：{{cb.company.company_name}}</li>
+			<li>{{cb.cproduct|display_verbose_name:'product_name'}}：{{cb.cproduct.product_name}}</li>
+			<li>充值{{cb|display_verbose_name:'amount'}}：<span class="red">￥{{cb.amount|floatformat:"2"}}元</span></li>
+			<li class="bank">支付银行：{{cb.cbank.bank_name}}
+			</li>
+			
+		</ul>
+	</div>
+	<div class="content bg-white">
+
+		<div class="align-center h80">
+			{% ifequal cb.status 10 %}
+				{% if u %}
+					<a href="/public/main/" class="button button-blue align-center mgt30" >返回主页</a>
+				{% else %}
+					<a href="javascript:window.opener=null;window.close();" class="button button-blue align-center mgt30">关闭</a>
+				{% endif %}
+			{% else %}
+			<form target="_blank" action="/public/pay/" method="post">
+				{% csrf_token %}
+				<input type="hidden" name="id" value="{{cb.id}}">
+				<input type="submit" id="pay" value="重新支付" class="button button-red align-center mgt30" />
+			</form>
+			{% endifequal %}
+		</div>
+
+		<br/><br/><br/><br/><br/>
+	</div>
+    <div class="check-bg" style="display: none;">
+        <div class="check-box">
+            <h1>支付确认</h1>
+            <p>支付完成前请不要关闭此窗口。<br>完成付款后请根据情况点击下面的按钮。<br/></p>
+            <br/>
+            <a href="/public/verify/{{cb.id}}" class="little-button button-blue" >完成付款</a>
+            <a href="/public/help/#pay" class="little-button button-red mgl20" >支付遇到问题</a>
+
+        </div>
+    </div>
+{% endblock %}

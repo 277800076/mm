@@ -1,0 +1,42 @@
+{% extends "./base_panel.html" %}
+{% block title %}
+	<title>设置</title>
+{% endblock %}
+{% block head %}
+	<script type="text/javascript" src="/js/cserp_table.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+
+	}); 
+	</script>
+{% endblock %}
+
+{% block panel %}
+	<div class="content bg-ll-blue" style="height:35px;line-height:35px;">
+		<a href="/public/main/">主页</a> -> 设置
+	</div>
+
+	<div id="msg"></div>
+	<div class="content bg-white">
+	<form id="frm"  method="post" action="/setting/setup/">
+		{% csrf_token %}
+		<div style="height:40px;">
+			<input class="little-button button-red" type="submit" name="save" value="保存" />
+			<a class="little-button button-blue" href="/public/main/">取消</a>
+		</div>
+		<div class="form-li">
+			<section>
+				<label>{{f.card_type.label}}</label>
+				<div class="form-li mgl20">
+				{{f.card_type}}
+				</div>
+			</section>
+			<section>
+				<!-- 
+				<div>{{f.custom_price}}<label class="mgl10">{{f.custom_price.label}}</label></div>
+				 -->
+			</section>
+		</div>
+	</form>
+	</div>
+{% endblock %}

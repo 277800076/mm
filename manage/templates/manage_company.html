@@ -1,0 +1,25 @@
+{% extends "./base_manage.html" %}
+{% block title %}
+	<title>公司</title>
+{% endblock %}
+
+{% block panel %}
+	<div class="content bg-ll-blue" style="height:35px;line-height:35px;">
+		<a href="/manage/">主页</a> -> 公司
+	</div>
+
+	<div class="content bg-white">
+		<div id="ddt">
+			<table id="dt" class="data-table">
+				<tr class="bg-light-blue">
+					<th>公司名称</th>
+				</tr>
+				{% for item in list %}
+				<tr>
+					<td>{{item.company_name}}</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+{% endblock %}

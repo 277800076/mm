@@ -1,0 +1,15 @@
+{% extends "./base_panel.html" %}
+{% block title %}
+	<title>{{t}}</title>
+{% endblock %}
+
+
+{% block panel %}
+	<div class="align-center" width="100%" height="400"> 
+		<br/><br/><br/><br/>
+		<span class="sv-font-xxl sv-color-deep">{{i}}</span>
+		<br/><br/><br/><br/>
+		<a class="button button-blue" onclick="javascript:history.go(-1);" href="javascript:void(0);">返回</a>
+		<a class="button button-orange" href="/public/buy/">升级到正式版</a>
+	</div>
+{% endblock %}

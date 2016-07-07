@@ -1,0 +1,102 @@
+{% extends "./base_panel.html" %}
+{% block title %}
+	<title>新增消费单</title>
+{% endblock %}
+
+{% block head %}
+<script>
+
+	$(function() {
+		var fv = new formValidate('#frm'); 
+		fv.init({}); 
+	
+		//绑定选择卡按钮
+		bindButton('#ulist','#btnSelectCard','#id_card_id','#id_cardno','选择卡','/card/value/select/',2);
+
+
+		//绑定选择商品按钮
+		//新增行有效
+		bindButton('#dt','#btnSelectProduct','#id_product_id','#id_product_name','选择商品','/product/select/',2);
+		
+		//绑定鼠标移动
+		bindMouseMove("#dt");
+		
+		//绑定表格隔行颜色
+		bindRowColor("#dt");
+		
+		//绑定表格删除按钮
+		bindRowDelete("#dt","tiny-button del")
+		
+
+		//点击行
+		$("#dt").delegate('tr','click',function(){
+            //遍历所有的行，移除class:selected
+            $.each($(".stripe tr"), function(i, n) {
+                $(n).removeClass("selected");
+                $(n).find("#btnSelectProduct").remove();
+                $($(this).children()[0]).children("input").removeAttr("id");
+            });
+            //给当前行添加class:selected
+            $(this).addClass("selected");
+            $($(this).children()[0]).children("input").first().attr("id","id_product_id");
+            $($(this).children()[0]).children("input").last().attr("id","id_product_name");
+            $($(this).children()[0]).children().last().after("<span id='btnSelectProduct' class='tiny-button button-green'>选择</span>");
+        });
+		
+		//点击添加条目
+		$('#btnAddItem').click(function(){
+			//$("#dt tr").last().after($("#dt tr").last().prop("outerHTML"));
+			$('<tr>\
+				<td><input id="id_product_id" name="product_id" type="hidden">\
+				<input class="txt bg-ll-blue" id="id_product_name" name="product_name" readonly="True" type="text" validate="not_null"><span></span></td>\
+				<td><input class="txt" id="id_quantity" name="quantity" type="text" validate="quantity"><span></span></td>\
+				<td><input class="txt" id="id_price" name="price" type="text" validate="money"><span></span></td><td><span class="tiny-button del">删除</span></td></tr>')
+			.appendTo($("#dt>tbody"));
+		});
+	});
+</script>
+{% endblock %}
+
+{% block panel %}
+	<div class="content bg-ll-blue" style="height:35px;line-height:35px;">
+		<a href="/public/main/">主页</a> -> <a href="/bill/sale/value/">消费单</a> -> 新增消费单
+	</div>
+
+
+	<div class="content bg-white">
+	<form id="frm"  method="post" action="/bill/sale/value/new/">
+		{% csrf_token %}
+		<div style="height:40px;">
+			<input class="little-button button-red" type="submit" name="save" value="保存" />
+			<a class="little-button button-blue" onclick="javascript:history.go(-1);" href="javascript:void(0);">取消</a>
+		</div>
+		<ul id="ulist">
+			<li class="form-li">{{f.card_id.as_hidden}}</li>
+			<li class="form-li"><label>{{f.cardno.label}}</label> {{f.cardno}}<span></span>
+			<span id="btnSelectCard" class="tiny-button button-green">选择</span>
+			</li>
+		</ul>
+		<table class="stripe data-table" id="dt">
+			<tr class="bg-light-blue">
+				<td width="300">商品名称</td>
+				<td>数量</td>
+				<td>单价</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>
+				<input id="id_product_id" name="product_id" type="hidden" />
+				<input class="txt bg-ll-blue" id="id_product_name" name="product_name" readonly="True" type="text" validate="not_null" /><span></span>
+				</td>
+				<td><input class="txt" id="id_quantity" name="quantity" type="text" validate="quantity" /><span></span></td>
+				<td><input class="txt" id="id_price" name="price" type="text" validate="money" /><span></span></td>
+				<td><span class="tiny-button del">删除</span></td>
+			</tr>
+		</table>
+		<ul>
+			<li class="form-li"><span id="btnAddItem" class="tiny-button">添加条目</span></li>
+		</ul>
+	</form>
+	<br/><br/><br/><br/><br/>
+	</div>
+{% endblock %}

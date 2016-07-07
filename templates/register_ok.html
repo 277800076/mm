@@ -1,0 +1,26 @@
+{% extends "./base_panel.html" %}
+{% block title %}
+	<title>注册成功</title>
+{% endblock %}
+{% block head %}
+<script>
+	$(function() {
+		//绑定登录按钮
+		bindButtonJump('#divButton','#btnLogin','/main/','登录','/win_login/',1);
+	});
+</script>
+{% endblock %}
+{% block panel %}
+<div>
+	<div class="wait">
+			<h2 class="success">注册成功！</h2>
+	</div>
+	<div align="center" valign="middle" >
+
+		<div id="divButton">
+			<a id="btnLogin" class="btn-footer" href="#">马上登录</a>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

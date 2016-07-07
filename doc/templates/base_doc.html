@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block title %}{% endblock %}
+        <meta charset="UTF-8">
+        {% block description %}{% endblock %}
+        {% block keywords %}{% endblock %}
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" /><!– IE8 mode –>
+        <link rel="icon" href="/images/logo.ico?v=20141014" type="image/x-icon" />
+        <link rel="shortcut icon" href="/images/logo.ico?v=20141014" type="image/x-icon" />
+		<link type="text/css" rel="stylesheet" href="/css/page.css?v=1">
+		<link type="text/css" rel="stylesheet" href="/css/doc.css?v=1">
+        {% block head %}{% endblock %}
+    </head>
+    <body>
+        <div class="header">
+            <div>
+            	<div class="logo">
+                   <a href="/"><img alt="logo" src="/images/logo.png" /></a>
+                </div>
+            	<div class="version">
+                   	{% if u %}
+                    	<a href="/public/version/">{{u.company.service.service_name}}</a>
+                    {% endif %}
+                </div>
+                <div class="log">
+	                <div class="log-top">
+	                </div>
+	                <div class="log-bottom">
+					{% if u %}
+						{{hi}}，{{u.real_name}}！&nbsp;&nbsp;
+						{% if u.branch.is_base %}
+						<a href="/setting/company/">公司账户</a>
+						{% endif %}
+						&nbsp;|&nbsp;
+						<a href="/login/">退出</a>
+					{% endif %}
+	                </div>
+                </div>
+            </div>
+        </div>
+		<div class="screen-width" style="min-height:400px;">
+			<div class="main-panel" style="min-height:400px;">
+			{% block panel %}
+			{% endblock %}
+			</div>
+		</div>
+		<div class="copy-content">
+	        <div>
+            	<div class="copy">
+                   2014 郑州一方资讯电子科技有限公司版权所有
+                </div>
+                <div class="copy-link">
+					<a href="http://chengsoft.com">Chengsoft.com</a>
+                </div>
+			</div>
+		</div>
+	<script type="text/javascript">
+	var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+	document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F1fab1debdb6f8dd9ba9a46d66860a9c0' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+    </body>
+</html>

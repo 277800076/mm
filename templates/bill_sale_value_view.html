@@ -1,0 +1,41 @@
+{% extends "./base_panel.html" %}
+{% load business_tags %}
+{% block title %}
+	<title>查看消费单</title>
+{% endblock %}
+
+{% block panel %}
+	<div class="content bg-ll-blue" style="height:35px;line-height:35px;">
+		<a href="/public/main/">主页</a> -> <a href="/bill/sale/value/">消费单</a> -> 查看消费单
+	</div>
+
+
+	<div class="content bg-white">
+
+		<div style="height:40px;">
+			<a class="little-button button-blue" onclick="javascript:history.go(-1);" href="javascript:void(0);">返回</a>
+		</div>
+		<ul id="ulist">
+			<li class="form-li"><label>{{b.cardvalue.unit|display_verbose_name:'unit_name'}}：</label>{{b.cardvalue.unit.unit_name}}</li>
+			<li class="form-li"><label>{{b.cardvalue|display_verbose_name:'cardno'}}：</label>{{b.cardvalue.cardno}}</li>
+			<li class="form-li"><label>{{b|display_verbose_name:'amount'}}：</label>{{b.amount|floatformat:"2"}}</li>
+		</ul>
+		<table class="stripe data-table" id="dt">
+			<tr class="bg-light-blue">
+				<td width="300">商品名称</td>
+				<td>数量</td>
+				<td>单价</td>
+				<td></td>
+			</tr>
+			{% for item in list %}
+			<tr>
+				<td>{{item.product.product_name}}</td>
+				<td>{{item.quantity|floatformat}}</td>
+				<td>{{item.price|floatformat:"2"}}</td>
+				<td></td>
+			</tr>
+			{% endfor %}
+		</table>
+
+	</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "./base_panel.html" %}
+{% block title %}
+	<title>职员</title>
+{% endblock %}
+{% block head %}
+	<script type="text/javascript" src="/js/cserp_table.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		var str_json="{\
+		urlNew:'/setting/user/new/',\
+		urlEdit:'/setting/user/edit/',\
+		urlDelete:'/setting/user/delete/',\
+		flagDelete:{}\
+		}";
+		table(str_json);
+		
+		bindRowColor("#dt");
+		bindMouseMove("#dt");
+	}); 
+	</script>
+{% endblock %}
+
+{% block panel %}
+	<div class="content bg-ll-blue" style="height:35px;line-height:35px;">
+		<a href="/public/main/">主页</a> -> 职员
+	</div>
+
+	<div id="msg"></div>
+	<div class="content bg-white">
+		<div style="height:40px;">
+			<span id="btnNew" class="little-button button-red">新增</span>
+			<span id="btnDelete" class="little-button button-red" style="display:none">删除</span>
+			<span id="btnEdit" class="little-button button-red" style="display:none">编辑</span>
+		</div>
+		<div id="ddt">
+			<table id="dt" class="data-table">
+				<tr class="bg-light-blue">
+					<th width="25"><input id="chkTitle" type="checkbox" /></th>
+					<th width="150">编号</th>
+					<th width="200">店铺</th>
+					<th>职员姓名</th>
+				</tr>
+				{% for item in list %}
+				<tr>
+					<td><input name="item-checkbox" type="checkbox" value="{{item.id}}" 
+					{% ifequal item.is_admin 1 %}
+					disabled
+					{% endifequal %}
+					/></td>
+					<td width="100">{{item.user_id}}</td>
+					<td width="100">{{item.branch.branch_name}}</td>
+					<td>{{item.real_name}}</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+		<br/><br/><br/><br/><br/>
+	</div>
+{% endblock %}

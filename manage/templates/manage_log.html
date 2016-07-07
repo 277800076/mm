@@ -1,0 +1,28 @@
+{% extends "./base_manage.html" %}
+{% block title %}
+	<title>日志</title>
+{% endblock %}
+
+{% block panel %}
+	<div class="content bg-ll-blue" style="height:35px;line-height:35px;">
+		<a href="/manage/">主页</a> -> 日志
+	</div>
+
+	<div class="content bg-white">
+		<div id="ddt">
+			<table id="dt" class="data-table">
+				<tr class="bg-light-blue">
+					<th width="200">时间</th>
+					<th>操作</th>
+				</tr>
+				{% for item in list %}
+				<tr>
+					<td width="100">{{item.time_gen|date:'Y-m-d H:i:s'}}</td>
+					<td>{{item.operation}}</td>
+					<td></td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+{% endblock %}

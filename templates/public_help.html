@@ -1,0 +1,41 @@
+{% extends "./base_panel.html" %}
+{% block title %}
+	<title>帮助</title>
+{% endblock %}
+{% block head %}
+<style> 
+p{line-height:30px} 
+</style>
+{% endblock %}
+{% block panel %}
+	<div class="content bg-ll-blue" style="height:35px;line-height:35px;">
+		<a href="/public/main/">主页</a> -> 帮助
+	</div>
+	<div class="content bg-white">
+	<ol>
+		<b><li><a name="login">登录</a></li></b>
+		<br/>
+		<p>登录的用户名是手机号，密码是注册时设置的密码。</p>
+		<br/>
+
+		<b><li><a name="search">搜索</a></li></b>
+		<br/>
+		<p class="red">注意：如果没有搜索按钮，请按回车搜索！</p>
+		<br/>
+		<p>可以根据单号、客户名和日期搜索单据。</p>
+		<p>单据格式xxxx-xxxx,例如：0000-0123。</p>
+		<p>客户中文名字，可以输入部分名字。比如赵飞燕，可以输入飞燕。</p>
+		<p>日期格式YYYY-MM-DD，其中'-'可以用'/'或者'.'代替。例如：2014-06-24、2014/10/31、2014.11.01都是有效的。</p>
+		<p>日期数字中的前导0可以去掉，例如：2014-06-24也可以写为2014-6-24，2014.11.01可以写为2014.11.1</p>
+		<br/>		
+		<b><li><a name="pay">充值</a></li></b>
+		<br/>
+		<p>1、借记卡是否开通网银？需要安装数字证书或者安全控件的是否正确安装？</p>
+		<p>2、是否超过网银限额？</p>
+		<p>3、密码是否正确？输错密码三次以上账户可能被锁定，需要到柜台办理解锁。</p>
+		<p>4、IE是对网银兼容性最好的浏览器，看是否需要更换浏览器！</p>
+		<p>5、尝试其他支付方式。</p>
+		<br/><br/><br/><br/><br/>
+	</ol>	
+	</div>
+{% endblock %}

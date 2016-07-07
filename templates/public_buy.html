@@ -1,0 +1,86 @@
+{% extends "./base_panel.html" %}
+{% block title %}
+	<title>购买</title>
+{% endblock %}
+{% block head %}
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.pan').click(function() {
+				$('.pan').removeClass('on');
+				$('#product-id').attr('value', $(this).attr('id'));
+				$(this).addClass('on');
+		    });
+		$('#pay').click(function() {
+	        if ($('#product').find('span').hasClass('on')) {
+				$.layer({
+					type: 1,   //0-4的选择,
+				    title: "选择支付方式",
+				    border: [0],
+				    closeBtn: [1,true],
+				    shadeClose: true,
+				    area: ['700px', '400px'],
+					offset : ['100px', '250px'],
+				    page: {dom : '.bank'}
+				});
+	        };
+		});
+	    $('.bank .bank-list a').hover(function() {
+	        $(this).addClass('on');
+	    }, function() {
+	        $(this).removeClass('on');
+	    });
+	    $('.bank .bank-list a').click(function() {
+	        $('.bank .bank-list a').removeClass('on');
+	        $(this).addClass('on');
+	        $('#ruready #bank-id').attr('value', $(this).find('img').attr('bankid'));
+	        $('#imready').click();
+	
+	    });
+		$('#imready').submit(function() {
+	        if ( $('#bank-id').val() == '' || $('#product-id').val() == '' ) {
+	            return false;
+	        };
+		});
+	});
+</script>
+{% endblock %}
+{% block panel %}
+	<div class="content bg-ll-blue" style="height:35px;line-height:35px;">
+		{% if u %}
+		<a href="/public/main/">
+		{% else %}
+		<a href="/">
+		{% endif %}
+		主页</a> -> 购买
+	</div>
+
+	<div class="content bg-white">
+		<div>
+		    <form id="ruready" action="/public/buy/" method="post">
+		    	{% csrf_token %}
+		    	<input type='hidden' name='product_id' id='product-id'>
+	            <input type='hidden' name='bank_id' id='bank-id'>
+	            <input type="submit" style="display:none;" id="imready">
+            </form> 
+		</div>
+		<div id="product" class="align-center h200">
+			<span class="pan" id="1001"><p>&nbsp;</p><p class="red">月卡：￥85元/月</p><p>&nbsp;</p></span>
+			<span class="pan" id="1002"><p class="red">季卡：￥210元/季</p><p class="cancel">￥255元/季</p><p>优惠￥45元</p></span>
+			<span class="pan" id="1003"><p class="red">年卡：￥600元/年</p><p class="cancel">￥960元/年</p><p>优惠￥360元</p></span>
+		</div>
+		<div class="align-center h80">
+			<span id="pay" class="button button-red align-center mgt30">立即支付</span>
+		</div>
+		<br/><br/><br/><br/><br/>
+	</div>
+	<div class="bank" style="display:none;">
+	    <div class="bank-list">
+	    {% for item in list %}
+			{% ifchanged item.type %}
+				<br/>
+			{% endifchanged %}
+	    	<a href="javascript:;"><span></span><img src="/images/bank_icons/{{item.img_url}}" alt="{{item.bank_name}}" bankid="{{item.gateway}}|{{item.id}}" ></a>
+	    {% endfor %}
+		</div>
+	</div>
+{% endblock %}

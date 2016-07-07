@@ -1,0 +1,94 @@
+{% extends "./base_panel.html" %}
+{% load business_tags %}
+{% block title %}
+	<title>报表</title>
+{% endblock %}
+{% block head %}
+<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="/js/flot/canvas.min.js"></script><![endif]-->
+    <style type="text/css">
+        #flot-placeholder{float:left;width:950px;height:200px;}        
+    </style>
+	<script type="text/javascript" src="/js/flot/jquery.flot.min.js"></script>
+	<script type="text/javascript">
+	    $(document).ready(function () {
+		    var data1 = [{% for item in list1 %}[{{item.0}},{{item.1|floatformat:"2"}}],{% endfor %}];
+		    //var data2 = [{% for item in list2 %}[{{item.0}},{{item.1|negative|floatformat:"2"}}],{% endfor %}];
+		    var dataset = [
+		    {label: "&nbsp;收入",data: data1},
+		    //{label: "&nbsp;销售",data: data2}
+		    ];
+		    var options = {
+		        series:{
+		            lines:{ show: true },
+		            points:{radius: 5,show: true},
+					
+		        },
+		        grid:{
+		        	hoverable:true,
+		   
+		        },
+		        xaxis: {
+		            ticks: [0,1,2,3,4,5,6,7,8,9,10,11,[12,'12/月']],
+		            tickDecimals:0,
+		        }
+		    };
+		    
+	        $.plot($("#flot-placeholder"), dataset, options);
+	        
+		    function showTooltip(x, y, contents) {
+		        $('<div id="tooltip">' + contents + '</div>').css( {
+		            position: 'absolute',
+		            display: 'none',
+		            top: y + 5,
+		            left: x + 5,
+		            border: '1px solid #fdd',
+		            padding: '2px',
+		            'background-color': '#fee',
+		            opacity: 0.80
+		        }).appendTo("body").fadeIn(200);
+		    }
+
+		    var previousPoint = null;
+		    $("#flot-placeholder").bind("plothover", function (event, pos, item) {
+	            if (item) {
+	                if (previousPoint != item.dataIndex) {
+	                    previousPoint = item.dataIndex;
+	                    
+	                    $("#tooltip").remove();
+	                    //x,y分别是该点x,y的值，可以用于showTooltip
+	                    //(x-1)+点+item.series.label+y+"元"
+	                    var x = item.datapoint[0],
+	                        y = item.datapoint[1].toFixed(2);
+	                    
+	                    showTooltip(item.pageX, item.pageY,item.series.label+y+"元");
+	                }
+	            }
+	            else {
+	                $("#tooltip").remove();
+	                previousPoint = null;            
+	            }
+		    });
+	    });
+	</script>
+{% endblock %}
+
+{% block panel %}
+	<div class="content bg-ll-blue" style="height:35px;line-height:35px;">
+		<a href="/public/main/">主页</a> -> 报表
+	</div>
+	<div class="content bg-white">
+		<div style="height:40px;">
+
+			<a id="btnYesterday" class="tiny-button" href="/public/report/day/{{td|addday:-1}}">昨天</a>
+			<a id="btnToday" class="tiny-button" href="/public/report/day/{{td|addday:0}}">今天</a>
+			<a id="btnMonth" class="little-button" href="/public/report/month/{{td|month}}">本月</a>
+			<span id="btnYear" class="little-button button-red">本年</span>	
+		</div>
+	    <div style="background:#fff;height:100px;">
+		    <ul style="margin:20px 20px 20px 20px;">
+			    <li style="height:40px;">本年客户充值：<span  class="sv-font-xxl">{{ia}}</span>元</li>
+		    </ul>
+	    </div>
+		<div id="flot-placeholder"></div>
+	</div>
+{% endblock %}

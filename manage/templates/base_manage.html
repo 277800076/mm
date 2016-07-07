@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% block title %}{% endblock %}
+        <meta charset="UTF-8">
+        <link rel="icon" href="/images/logo.ico?v=20141014" type="image/x-icon" />
+        <link rel="shortcut icon" href="/images/logo.ico?v=20141014" type="image/x-icon" />
+		<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+		<link type="text/css" rel="stylesheet" href="/css/page.css?v=1">
+        {% block head %}{% endblock %}
+    </head>
+    <body>
+        <div class="header">
+            <div>
+            	<div class="logo">
+                   <a href="/"><img alt="logo" src="/images/logo.png" /></a>
+                </div>
+            	<div class="version">
+                </div>
+                <div class="log">
+	                <div class="log-top">
+	                </div>
+	                <div class="log-bottom">
+	                <a href="/manage/login/">退出</a>
+	                </div>
+                </div>
+            </div>
+        </div>
+		<div class="screen-width" style="min-height:400px;">
+			<div class="main-panel" style="min-height:400px;">
+			{% block panel %}
+			{% endblock %}
+			</div>
+		</div>
+		<div class="copy-content">
+	        <div>
+            	<div class="copy">
+                   2014 郑州一方资讯电子科技有限公司版权所有
+                </div>
+                <div class="copy-link">
+					<a href="http://chengsoft.com">Chengsoft.com</a>
+                </div>
+			</div>
+		</div>
+    </body>
+</html>

@@ -1,0 +1,50 @@
+{% extends "./base_panel.html" %}
+{% load business_tags %}
+{% block title %}
+	<title>订单确认</title>
+{% endblock %}
+{% block head %}
+<script type="text/javascript">
+	$(document).ready(function(){
+        $('#pay').click(function(){
+            $('.check-bg').show();
+        })
+	});
+</script>
+{% endblock %}
+{% block panel %}
+	<div class="wait">
+		<h2 class="success">订单提交成功，请您尽快付款！</h2>
+		<ul>
+			<li>{{u.company|display_verbose_name:'company_name'}}：{{u.company.company_name}}</li>
+			<li>{{cb.cproduct|display_verbose_name:'product_name'}}：{{cb.cproduct.product_name}}</li>
+			<li>待付{{cb|display_verbose_name:'amount'}}：<span class="red">￥{{cb.amount|floatformat:"2"}}元</span></li>
+			<li class="bank">支付银行：<br/>
+			<img src="/images/bank_icons/{{cb.cbank.img_url}}" width="160" height="50" alt="{{cb.cbank.bank_name}}">
+			</li>
+			<li>{{cb|display_verbose_name:'id'}}：<br/>{{cb.id}}</li>
+		</ul>
+	</div>
+	<div class="content bg-white">
+
+		<div class="align-center h80">
+			<form target="_blank" action="/public/pay/" method="post">
+				{% csrf_token %}
+				<input type="hidden" name="id" value="{{cb.id}}">
+				<input type="submit" id="pay" value="确认并支付" class="button button-red align-center mgt30" />
+			</form>
+		</div>
+
+		<br/><br/><br/><br/><br/>
+	</div>
+    <div class="check-bg" style="display: none;">
+        <div class="check-box">
+            <h1>支付确认</h1>
+            <p>支付完成前请不要关闭此窗口。<br>完成付款后请根据情况点击下面的按钮。<br/></p>
+            <br/>
+            <a href="/public/verify/{{cb.id}}" class="little-button button-blue" >完成付款</a>
+            <a href="/public/help/#pay" class="little-button button-red mgl20" >支付遇到问题</a>
+
+        </div>
+    </div>
+{% endblock %}

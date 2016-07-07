@@ -1,0 +1,21 @@
+{% extends "base_doc.html" %}
+{% block title %}
+	<title>{{d.title}}_橙软</title>
+{% endblock %}
+{% block description %}
+	<meta name="description" content="{{d.description}}">
+{% endblock %}
+{% block keywords %}
+	<meta name="keywords" content="{{d.keyword}}">
+{% endblock %}
+
+
+{% block panel %}
+	<div class="content bg-ll-blue" style="height:35px;line-height:35px;">
+		<a href="/">主页</a> -> <a href="/doc/">文章列表</a> -> {{d.title}}
+	</div>
+	<div class="content bg-white">
+		<a href="/doc/edit/{{d.id}}">编辑</a>
+		{{d.content|safe}}
+	</div>
+{% endblock %}

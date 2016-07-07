@@ -1,0 +1,51 @@
+{% extends "./base_dialog.html" %}
+{% block head %}
+<script type="text/javascript">
+$(function() {
+	var index = parent.layer.getFrameIndex(window.name);
+	$("#kw").focus();
+	$("#dt tr").slice(1).each(function(){  
+	    $(this).children().click(function(){
+	    	var ssn=$(this).parent('tr').children('td').eq(0).html();
+	    	var id=$(this).parent('tr').attr('item_id');
+	    	$('{{ns}}', window.parent.document).val(ssn);
+	    	$('{{ids}}', window.parent.document).val(id);
+			parent.layer.close(index);
+	    });
+	});
+	
+	//隔行变色
+	bindRowColor("#dt");
+	
+	//鼠标
+	bindMouseMove("#dt");
+     
+     
+});
+</script>
+{%endblock%}
+{% block content %}
+<div>
+	<div class="content bg-white">
+		<div style="height:40px;">
+			{% load business_tags %}
+			<form  method="post" action="/unit/select/?ids={{ids|quote}}&ns={{ns|quote}}">
+				{% csrf_token %}
+				<input id="kw" name="key_words" type="text" class="txt"/>
+				<input type="submit" class="little-button button-red" value="搜索"/>
+			</form>
+		</div>
+		<table class="stripe data-table" id="dt">
+			<tr class="bg-light-blue">                
+				<td>客户名称</td>
+			</tr>
+			
+			{%for item in list%}
+			<tr item_id="{{item.id}}">
+				<td>{{item.unit_name}}</td>
+			</tr>
+			{%endfor%}
+		</table>
+	</div>
+</div>
+{%endblock%}

@@ -1,0 +1,6 @@
+<uwsgi>
+	<socket>:9090</socket>
+	<processes>5</processes>
+	<pythonpath>/python/chengsoft</pythonpath>
+	<module>wsgi</module>
+</uwsgi>

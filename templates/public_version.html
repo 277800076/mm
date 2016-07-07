@@ -1,0 +1,60 @@
+{% extends "./base_panel.html" %}
+{% block title %}
+	<title>版本对比</title>
+{% endblock %}
+
+{% block panel %}
+	<div class="content bg-ll-blue" style="height:35px;line-height:35px;">
+		{% if u %}
+		<a href="/public/main/">
+		{% else %}
+		<a href="/">
+		{% endif %}
+		主页</a> -> 版本对比
+	</div>
+
+	<div class="content bg-white">
+		<div id="ddt">
+			<table id="dt" class="big-table">
+				<tr class="bg-light-blue">
+					<th>功能项目</th>
+					<th>免费版</th>
+					<th>正式版</th>
+				</tr>
+				<tr>
+					<td>店铺个数</td>
+					<td>{{s1.max_branch}}个</td>
+					<td>{{s2.max_branch}}个</td>
+				</tr>
+				<tr>
+					<td>客户个数</td>
+					<td>{{s1.max_unit}}个</td>
+					<td>{{s2.max_unit}}个</td>
+				</tr>
+				<tr>
+					<td>客户充值消费短信通知</td>
+					<td>支持</td>
+					<td>支持</td>
+				</tr>
+				<tr>
+					<td>报表系统</td>
+					<td>支持</td>
+					<td>支持</td>
+				</tr>
+				<tr>
+					<td><br/>价格</td>
+					<td><br/>￥0元/年</td>
+					<td>
+						￥600元/年 <span class="bg-blue white">&nbsp;省360元&nbsp;</span><br/>
+						￥210元/季 <span class="bg-blue white">&nbsp;省45元&nbsp;</span><br/>
+						￥85元/月 <span class="bg-blue white">&nbsp;省5元&nbsp;</span><br/>
+					</td>
+				</tr>
+			</table>
+			<div class="align-center h80">
+				<a class="button button-red align-center mgt30" href="/public/buy/">马上购买</a>
+			</div>
+			<br/><br/><br/>
+		</div>
+	</div>
+{% endblock %}

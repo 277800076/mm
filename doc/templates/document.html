@@ -1,0 +1,37 @@
+{% extends "base_doc.html" %}
+{% block title %}
+	{% if k %}
+	<title>{{k}}</title>
+	{% else %}
+	<title>文章列表_橙软</title>
+	{% endif %}
+{% endblock %}
+{% block description %}
+	<meta name="description" content="橙软提供很多有关会员以及会员管理的文章！">
+{% endblock %}
+{% block keywords %}
+	<meta name="keywords" content="橙软,chengsoft,会员管理软件,免费会员管理">
+{% endblock %}
+{% block head %}
+<script>
+	$(function() {
+		var fv = new formValidate('#frm'); 
+		fv.init({}); 
+	});
+</script>
+{% endblock %}
+
+{% block panel %}
+	<div class="content bg-ll-blue" style="height:35px;line-height:35px;">
+		<a href="/">主页</a> -> 文章列表
+	</div>
+	<div class="content bg-white">
+		
+		<ol>
+		{% for item in list %}
+			<li class="form-li"><a href="/doc/view/{{item.id}}" alt="{{item.time_gen|date:'Y-m-d'}}">{{item.title}} </a></li>
+		{% endfor %}
+		</ol>
+
+	</div>
+{% endblock %}

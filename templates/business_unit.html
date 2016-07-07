@@ -1,0 +1,63 @@
+{% extends "./base_panel.html" %}
+{% block title %}
+	<title>单位</title>
+{% endblock %}
+{% block head %}
+	<script type="text/javascript" src="/js/cserp_table.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		var str_json="{\
+		urlNew:'/business/unit/new/',\
+		urlEdit:'/business/unit/edit/',\
+		urlDelete:'/business/unit/delete/',\
+		flagDelete:{}\
+		}";
+		table(str_json);
+		
+		bindRowColor("#dt");
+		bindMouseMove("#dt");
+
+	}); 
+	</script>
+{% endblock %}
+
+{% block panel %}
+	<div class="content bg-ll-blue" style="height:35px;line-height:35px;">
+		<a href="/public/main/">主页</a> -> 客户
+	</div>
+
+	<div class="content bg-white">
+		<div style="width:600px;height:40px;float:left;">
+			<span id="btnNew" class="little-button button-red">新增</span>
+			<span id="btnDelete" class="little-button button-red" style="display:none">删除</span>
+			<span id="btnEdit" class="little-button button-red" style="display:none">编辑</span>
+		</div>
+		<div style="width:350px;height:40px;float:left;text-align:right;">
+			<form method="post" action="/business/unit/">
+				{% csrf_token %}
+				{{f.key_words}}
+			</form>
+		</div>
+		<div id="ddt">
+			<table id="dt" class="data-table">
+				<tr class="bg-light-blue">
+					<th width="25"><input id="chkTitle" type="checkbox"/></th>
+					<th width="150">编号</th>
+					<th >客户名称</th>
+					<th >手机</th>
+					<th ></th>
+				</tr>
+				{% for item in list %}
+				<tr>
+					<td><input name="item-checkbox" type="checkbox" value="{{item.id}}" /></td>
+					<td width="100">{{item.unit_id}}</td>
+					<td><a href="/business/unit/view/{{item.id}}">{{item.unit_name}}</a></td>
+					<td>{{item.mobile}}</td>
+					<td></td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+		<br/><br/><br/><br/><br/>
+	</div>
+{% endblock %}

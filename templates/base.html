@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        {% block title %}{% endblock %}
+        <meta name="description" content="欢迎光临橙软，为中小企业提供方便易用的软件服务产品！">
+        <meta name="keywords" content="会员管理,会员管理系统,会员管理系统免费版,免费会员管理系统,最简单的会员管理系统,会员管理软件,会员管理软件免费版,免费会员管理软件,最简单的会员管理系统,VIP会员管理,会员卡,会员管理平台">
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" /><!– IE8 mode –>
+        <link rel="icon" href="/images/logo.ico?v=20141014" type="image/x-icon" />
+        <link rel="shortcut icon" href="/images/logo.ico?v=20141014" type="image/x-icon" />
+		<link type="text/css" rel="stylesheet" href="/css/page.css?v=1">
+		<link type="text/css" rel="stylesheet" href="/css/layout.css?v=20141014">
+		<!--[if gte IE 9]><!--><link type="text/css" rel="stylesheet" href="/css/visual.css?v=20141014"><!--<![endif]-->
+		<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="/js/jquery-1.9.1.post-csrf-patch.js"></script>
+		<script type="text/javascript" src="/js/jquery-ui-1.8.19.custom.min.js"></script>
+		<script type="text/javascript" src="/js/jquery.transit.js?v=20141014"></script>
+        <script type="text/javascript" src="/js/layer/layer.js?v=20141015"></script>
+		<script type="text/javascript" src="/js/visual.js?v=20141014"></script>
+		<script type="text/javascript" src="/js/cserp.js?v=20141014"></script>
+		<script type="text/javascript" src="/js/cserp_table.js?v=20141014"></script>
+        {% block head %}{% endblock %}
+    </head>
+    <body>
+        <div class="header">
+            <div>
+            	<div class="logo">
+                   <a href="/"><img alt="logo" src="/images/logo.png" /></a>
+                </div>
+            	<div class="version">
+                   	{% load business_tags %}
+                   	{% if u %}
+                    	<a href="/public/version/">{{u.company.service.service_name}}</a>
+                    {% endif %}
+                </div>
+                <div class="log">
+	                <div class="log-top">
+	                </div>
+	                <div class="log-bottom">
+					{% if u %}
+						{{hi}}，{{u.real_name}}！&nbsp;&nbsp;
+						{% if u.branch.is_base %}
+						<a href="/setting/company/">公司账户</a>
+						{% endif %}
+						&nbsp;|&nbsp;
+						<a href="/login/">退出</a>
+					{% endif %}
+	                </div>
+                </div>
+            </div>
+        </div>
+
+        {% block content %}{% endblock %}
+		<div class="copy-content">
+	        <div>
+            	<div class="copy">
+                   2014 郑州一方资讯电子科技有限公司版权所有
+                </div>
+                <div class="copy-link">
+					<a href="http://chengsoft.com">Chengsoft.com</a>
+                </div>
+			</div>
+		</div>
+	<script type="text/javascript">
+	var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+	document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F1fab1debdb6f8dd9ba9a46d66860a9c0' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+    </body>
+</html>

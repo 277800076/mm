@@ -1,0 +1,44 @@
+{% extends "./base_panel.html" %}
+{% load business_tags %}
+{% block title %}
+	<title>计次卡详细</title>
+{% endblock %}
+
+
+{% block panel %}
+	<div class="content bg-ll-blue" style="height:35px;line-height:35px;">
+		<a href="/public/main/">主页</a> -> 计次卡详细
+	</div>
+
+	<div class="content bg-white">
+		<div style="height:40px;">
+			<a class="little-button button-blue" onclick="javascript:history.go(-1);" href="javascript:void(0);">返回</a>
+		</div>
+		<ul id="ulist">
+			<li class="form-li">
+				<span class="card">
+					<p class="gray sv-font-l">计次卡号：{{ct.cardno}}<p>
+					<p class="red sv-font-xxl align-center mgt20">{{ct.product.product_name}}  {{ct.times}}次</p>
+				</span>
+			</li>
+		</ul>
+		<br/>
+		<table class="data-table">
+			<tr class="bg-light-blue">
+				<th>时间</th>
+				<th>店铺</th>
+				<th>单据编号</th>
+				<th>次</th>
+			</tr>
+			{% for item in ctcs %}
+			<tr>
+				<td>{{item.ledger.time_gen|date:'Y-m-d H:i'}}</td>
+				<td>{{item.ledger.bill.branch.branch_name}}</td>
+				<td>{{item.ledger.bill.bill_id}}</td>
+				<td>{{item.times}}</td>
+			</tr>
+			{% endfor %}
+		</table>
+		<br/><br/><br/><br/><br/>
+	</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "./base_panel.html" %}
+{% block title %}
+	<title>新增商品</title>
+{% endblock %}
+
+{% block head %}
+<script>
+	$(function() {
+		var fv = new formValidate('#frm'); 
+		fv.init({}); 
+	});
+</script>
+{% endblock %}
+
+{% block panel %}
+	<div class="content bg-ll-blue" style="height:35px;line-height:35px;">
+		<a href="/public/main/">主页</a> -> <a href="/setting/product/">商品</a> -> 新增商品
+	</div>
+
+
+	<div class="content bg-white">
+	<form id="frm"  method="post" action="/setting/product/new/">
+		{% csrf_token %}
+		<div style="height:40px;">
+			<input class="little-button button-red" type="submit" name="save" value="保存" />
+			<a class="little-button button-blue" href="/setting/product/">取消</a>
+		</div>
+			<ul id="ulist">
+				<li class="form-li"><label>{{f.product_name.label}} </label>{{f.product_name}}<span></span></li>
+			</ul>
+	</form>
+	</div>
+{% endblock %}

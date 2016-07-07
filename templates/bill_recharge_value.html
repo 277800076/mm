@@ -1,0 +1,111 @@
+{% extends "./base_panel.html" %}
+{% block title %}
+	<title>充值单</title>
+{% endblock %}
+{% block head %}
+	<script type="text/javascript" src="/js/cserp_table.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		var str_json="{\
+		urlNew:'/bill/recharge/value/new/',\
+		urlEdit:'/bill/recharge/value/edit/',\
+		urlDelete:'/bill/delete/',\
+		flagDelete:{}\
+		}";
+		table(str_json);
+		
+		bindRowColor("#dt");
+		bindMouseMove("#dt");
+		
+		$("#dt").click(function(e) {
+			if (e.target.className=="tiny-button exe"){
+			    var msg=$("#msg"); 
+	            var inid=$(e.target).parents("tr").attr("id_item");//获取当前点击td父类tr的id  
+
+	        	msg.html("正在执行..."); //提示正在提交
+
+	            $.post("/bill/exe/",{id:inid,type:'recharge_value'},
+	            function(ret) {        
+		        	if(ret==1){  
+			        	msg.html("执行成功！");
+			        	//状态修改为已执行
+			        	$(e.target).parents("td").prev().html("已执行");
+			        	//执行按钮取消
+			        	$(e.target).remove();
+			        	
+			        }  
+			        else if(ret==2){  
+			            msg.html("无此单据！");  
+			        }
+			        else if(ret==3){  
+			            msg.html("单据不能执行！");  
+			        }
+			        else if(ret==4){  
+			            msg.html("非本店单据！");  
+			        }; 
+			    });
+	
+			};
+		});
+	}); 
+	</script>
+{% endblock %}
+
+{% block panel %}
+	<div class="content bg-ll-blue" style="height:35px;line-height:35px;">
+		<a href="/public/main/">主页</a> -> 充值单
+	</div>
+
+	<div id="msg"></div>
+	<div class="content bg-white">
+		<div style="width:600px;height:40px;float:left;">
+			<span id="btnNew" class="little-button button-red">新增</span>
+			<span id="btnDelete" class="little-button button-red" style="display:none">删除</span>
+			<span id="btnEdit" class="little-button button-red" style="display:none">编辑</span>
+		</div>
+		<div style="width:350px;height:40px;float:left;text-align:right;">
+			<form method="post" action="/bill/recharge/value/">
+				{% csrf_token %}
+				{{f.key_words}}
+			</form>
+		</div>
+		<div id="ddt">
+			<table id="dt" class="data-table">
+				<tr class="bg-light-blue">
+					<th width="25"><input id="chkTitle" type="checkbox"/></td>
+					<th width="100">编号</td>
+					<th width="200">日期</td>
+					<th width="100">客户</td>
+					<th width="190">卡号</td>
+					<th width="100">收款</td>
+					<th width="100">充值</td>
+					<th width="100">状态</td>
+					<th width="100">执行</td>
+				</tr>
+				{% for item in list %}
+				<tr id_item="{{item.id}}">
+					<td><input name="item-checkbox" type="checkbox" value="{{item.id}}" 
+					{% ifequal item.status 10 %}
+					disabled
+					{% endifequal %}
+					/></td>
+					<td width="100">{{item.bill_id}}</td>
+					<td>{{item.time_gen|date:'Y-m-d H:i:s'}}</td>
+					<td><a href="/business/unit/view/{{item.cardvalue.unit.id}}">{{item.cardvalue.unit.unit_name}}</a></td>
+					<td><a href="/card/value/view/{{item.cardvalue.id}}">{{item.cardvalue.cardno}}</a></td>
+					<td>{{item.money|floatformat:"2"}}</td>
+					<td>{{item.amount|floatformat:"2"}}</td>
+					{% load business_tags %}
+					<td>{{item|display_status:'status'}}</td>
+					<td>
+					{% ifequal item.status 1 %}
+					<span id="btnDelete" class="tiny-button exe">执行</span>
+					{% endifequal %}
+					</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+		<br/><br/><br/><br/><br/>
+	</div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "./base_panel.html" %}
+{% block title %}
+	<title>新增客户</title>
+{% endblock %}
+
+{% block head %}
+<script>
+	$(function() {
+		var fv = new formValidate('#frm'); 
+		fv.init({}); 
+
+		bindButton('#ulist','#btnSelectProduct','#id_product_id','#id_product_name','选择商品','/product/select/',2);
+
+		$('.little-pan').click(function() {
+				$('.little-pan').removeClass('on');
+				$('#id_card_type').attr('value', $(this).attr('value'));
+				$(this).addClass('on');
+
+				if ($(this).attr('value')==2){
+					if($('#ulist>li>#id_product_id').length==0){
+						$('<li class="form-li"><input id="id_product_id" name="product_id" type="hidden" /></li>\
+						<li id="product" class="form-li"><label>商品名称 </label>\
+						<input class="txt bg-ll-blue" id="id_product_name" name="product_name" readonly="True" type="text" validate="not_null"/><span></span>\
+						<span id="btnSelectProduct" class="tiny-button button-green">选择</span>').appendTo($("#ulist"));
+					}
+				}else{
+					$('#ulist>li').slice(4).remove();
+				};
+		    });
+	});
+</script>
+{% endblock %}
+
+{% block panel %}
+	<div class="content bg-ll-blue" style="height:35px;line-height:35px;">
+		<a href="/public/main/">主页</a> -> <a href="/business/unit/">单位</a> -> 新增客户
+	</div>
+
+
+	<div class="content bg-white">
+	<form id="frm"  method="post" action="/business/unit/new/">
+		{% csrf_token %}
+		{{cf.card_type.as_hidden}}
+		<div style="height:40px;">
+			<input class="little-button button-red" type="submit" name="save" value="保存" />
+			<a class="little-button button-blue" href="/business/unit/">取消</a>
+		</div>
+			<ul id="ulist">
+				<li class="form-li"><label>{{uf.unit_name.label}} </label>{{uf.unit_name}}<span></span></li>
+				<li class="form-li"><label>{{uf.mobile.label}} </label>{{uf.mobile}}<span></span></li>
+				<li class="form-li"><label>{{cf.card_type.label}} </label><span class="little-pan" value="1">储值卡</span><span class="little-pan" value="2">计次卡</span></li>
+				<li class="form-li"><label>{{cf.cardno.label}} </label>{{cf.cardno}}<span></span></li>
+			</ul>
+	</form>
+	</div>
+{% endblock %}

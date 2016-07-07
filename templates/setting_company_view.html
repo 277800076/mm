@@ -1,0 +1,44 @@
+{% extends "./base_panel.html" %}
+{% load business_tags %}
+{% block title %}
+	<title>公司账户</title>
+{% endblock %}
+
+
+{% block panel %}
+	<div class="content bg-ll-blue" style="height:35px;line-height:35px;">
+		<a href="/public/main/">主页</a> -> 公司账户
+	</div>
+
+	<div class="content bg-white">
+		<div style="height:40px;">
+			<a class="little-button button-blue" onclick="javascript:history.go(-1);" href="javascript:void(0);">返回</a>
+		</div>
+			<ul id="ulist">
+				<li class="form-li"><label>{{u.company|display_verbose_name:'company_name'}}：</label>{{u.company.company_name}}</li>
+				<li class="form-li"><label>{{u.company.service|display_verbose_name:'service_name'}}：</label><a href="/public/version/">{{u.company.service.service_name}}</a></li>
+				<li class="form-li"><label>可用时间：</label>{{u.company.time_expired|timeuntil}}&nbsp;&nbsp;（至：{{u.company.time_expired|date:'Y-m-d'}}）</li>
+			</ul>
+			<br/>
+			{% ifnotequal list.count 0 %}
+			<table class="data-table">
+				<tr class="bg-light-blue">
+					<th>订单号</th>
+					<th>时间</th>
+					<th>产品</th>
+					<th>金额</th>
+					<th>状态</th>
+				</tr>
+				{% for item in list %}
+				<tr>
+					<td>{{item.id}}</td>
+					<td>{{item.time_gen|date:'Y-m-d H:i:s'}}</td>
+					<td>{{item.cproduct.product_name}}</td>
+					<td>{{item.amount|floatformat:"2"}}</td>
+					<td>{{item|display_status:'status'}}</td>
+				</tr>
+				{% endfor %}
+			</table>
+			{% endifnotequal %}
+	</div>
+{% endblock %}

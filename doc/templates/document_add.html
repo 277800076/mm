@@ -1,0 +1,35 @@
+{% extends "base_doc.html" %}
+{% block title %}
+	<title>新增文章</title>
+{% endblock %}
+{% block head %}
+	<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="/js/cserp.js?v=20141014"></script>
+	<script>
+		$(function() {
+			var fv = new formValidate('#frm'); 
+			fv.init({}); 
+		});
+	</script>
+{% endblock %}
+
+{% block panel %}
+	<div class="content bg-ll-blue" style="height:35px;line-height:35px;">
+		<a href="/">主页</a> -> 新增文章
+	</div>
+	<div class="content bg-white">
+	<form id="frm" method="post" action="/doc/new/">
+		{% csrf_token %}
+		<div style="height:40px;">
+			<input class="little-button button-red" type="submit" name="save" value="保存" />
+			<a class="little-button button-blue" href="/business/unit/">取消</a>
+		</div>
+			<ul id="ulist">
+				<li class="form-li"><label>{{f.title.label}} </label>{{f.title}}<span></span></li>
+				<li class="form-li"><label>{{f.keywords.label}} </label>{{f.keywords}}<span></span></li>
+				<li class="form-li"><label>{{f.description.label}} </label>{{f.description}}<span></span></li>
+				<li class="form-li"><label>{{f.content.label}} </label>{{f.content}}<span></span></li>
+			</ul>
+	</form>
+	</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "./base_panel.html" %}
+{% block title %}
+	<title>修改消费单</title>
+{% endblock %}
+
+{% block head %}
+<script>
+ 
+	$(function() {
+		var fv = new formValidate('#frm'); 
+		fv.init({});
+	
+		//绑定选择单位按钮
+		bindButton('#ulist','#btnSelectCard','#id_card_id','#id_cardno','选择卡','/card/times/select/',2);
+		
+	});
+</script>
+{% endblock %}
+
+{% block panel %}
+	<div class="content bg-ll-blue" style="height:35px;line-height:35px;">
+		<a href="/public/main/">主页</a> -> <a href="/bill/sale/times/">消费单</a> -> 修改消费单
+	</div>
+
+
+	<div class="content bg-white">
+	<form id="frm"  method="post" action="/bill/sale/times/edit/{{b.id}}">
+		{% csrf_token %}
+		<div style="height:40px;">
+			<input class="little-button button-red" type="submit" name="save" value="保存" />
+			<a class="little-button button-blue" href="/bill/sale/times/">取消</a>
+		</div>
+		<ul id="ulist">
+			<li class="form-li">{{f.card_id.as_hidden}}</li>
+			<li class="form-li"><label>{{f.cardno.label}}</label> {{f.cardno}}<span></span>
+			<span id="btnSelectCard" class="tiny-button button-green">选择</span>
+			</li>
+			<li class="form-li"><label>{{f.times.label}} </label>{{f.times}}<span></span> 次</li>
+		</ul>
+
+	</form>
+	</div>
+{% endblock %}

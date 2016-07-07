@@ -1,0 +1,51 @@
+{% extends "./base_panel.html" %}
+{% load business_tags %}
+{% block title %}
+	<title>客户详细</title>
+{% endblock %}
+
+
+{% block panel %}
+	<div class="content bg-ll-blue" style="height:35px;line-height:35px;">
+		<a href="/public/main/">主页</a> -> <a href="/business/unit/">客户</a> -> 客户详细
+	</div>
+
+	<div class="content bg-white">
+		<div style="height:40px;">
+			<a class="little-button button-blue" onclick="javascript:history.go(-1);" href="javascript:void(0);">返回</a>
+		</div>
+			<ul id="ulist">
+				<li class="form-li"><label>{{unit|display_verbose_name:'unit_id'}}：</label>{{unit.unit_id}}</li>
+				<li class="form-li"><label>{{unit|display_verbose_name:'unit_name'}}：</label>{{unit.unit_name}}</li>
+				<li class="form-li"><label>{{unit|display_verbose_name:'mobile'}}：</label>{{unit.mobile}}</li>
+				<li class="form-li"><label>{{unit|display_verbose_name:'time_gen'}}：</label>{{unit.time_gen|date:'Y-m-d H:i'}}</li>
+				{% ifnotequal cvs.count 0 %}
+				<li class="form-li">
+				{% for i in cvs %}
+					<a href="/card/value/view/{{i.id}}">
+					<span class="card">
+						<p class="gray sv-font-l">储值卡号：{{i.cardno}}<p>
+						<p class="red sv-font-xxl align-center mgt20">{{i.amount|floatformat:"2"}}元</p>
+					</span>
+					</a>
+				{% endfor %}
+				</li>
+				{% endifnotequal %}
+				
+				{% ifnotequal cts.count 0 %}
+				<li class="form-li">
+				{% for i in cts %}
+					<a href="/card/times/view/{{i.id}}">
+					<span class="card">
+						<p class="gray sv-font-l">计次卡号：{{i.cardno}}<p>
+						<p class="red sv-font-xxl align-center mgt20">{{i.product.product_name}}  {{i.times}}次</p>
+					</span>
+					</a>
+				{% endfor %}
+				</li>
+				{% endifnotequal %}
+			</ul>
+			<br/>
+
+	</div>
+{% endblock %}

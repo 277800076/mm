@@ -1,0 +1,69 @@
+{% extends "./base_dialog.html" %}
+{% block title %}
+	<title>登录</title>
+{% endblock %}
+{% block head %}
+<script type="text/javascript">
+$(function() {
+	var index = parent.layer.getFrameIndex(window.name);
+	$("#id_mobile").focus();
+
+	$('#id_login').on('click',function(){
+		var msg=$('#msg');
+		var mb=$('#id_mobile').val();
+		var pw=$('#id_password').val();
+		$.post("/auth/",{txtMobile:mb,txtPassword:pw},function(response) {          
+	        var result = eval ("(" + response + ")");
+	        if (result==1){
+	        window.parent.location.href="/public/main/";
+	        }
+	        else if(result==2){  
+	            msg.html("用户名或密码不正确！");  
+	        }
+	        else if(result==3){  
+	            msg.html("用户名和密码不能为空！");  
+	        }
+	        else if(result==4){  
+	            msg.html("内部错误！");  
+	        }
+	        else if(result==5){  
+	            msg.html("已过期！");  
+	        }; 
+		});
+	});
+     
+});
+
+
+function onkey()
+{
+	if (window.event.keyCode==13)
+	{
+	document.all["login"].focus();
+	}
+}
+</script>
+{%endblock%}
+{% block content %}
+<div >
+    <div class="login">
+        <div class="login-form">
+            <h2 class="form-title">登录Chengsoft</h2>
+            <div class="form-item">
+                <label class="login-label login-user" ></label>
+                {{f.mobile}}
+            </div>
+            <div class="form-item">
+                <label class="login-label login-password"></label>
+                {{f.password}}
+            </div>
+            <div class="form-item">
+                <input id="id_login" type="submit" class="login-button" name="login" value="登录" /> 
+            </div>
+            <div class="form-item">
+				<div id="msg"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
